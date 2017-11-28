@@ -1,0 +1,21 @@
+= form_for status_check do |f|
+  - if status_check.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(status_check.errors.count, "error")} prohibited this status_check from being saved:"
+      ul
+        - status_check.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :service_id
+    = f.number_field :service_id
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :selector
+    = f.text_field :selector
+  .field
+    = f.label :expected_value
+    = f.text_field :expected_value
+  .actions = f.submit

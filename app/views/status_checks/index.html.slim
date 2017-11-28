@@ -1,0 +1,27 @@
+h1 Listing status_checks
+
+table
+  thead
+    tr
+      th Service
+      th Name
+      th Selector
+      th Expected value
+      th
+      th
+      th
+
+  tbody
+    - status_checks.each do |status_check|
+      tr
+        td = status_check.service_id
+        td = status_check.name
+        td = status_check.selector
+        td = status_check.expected_value
+        td = link_to 'Show', status_check
+        td = link_to 'Edit', edit_status_check_path(status_check)
+        td = link_to 'Destroy', status_check, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Status check', new_status_check_path

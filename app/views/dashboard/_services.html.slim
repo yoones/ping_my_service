@@ -1,0 +1,16 @@
+.list-group
+  - services.cycle(2) do |service|
+    = link_to service, class: "list-group-item list-group-item-action flex-column align-items-start" do
+      div.d-flex.w-100.justify-content-between
+        h5.mb-1 = service.name
+        small.text-muted = service.status_checks.count
+      p.mb-1 errors here lorem ipsum
+      small.text-muted.float-xs-left
+        last checked x minutes ago
+    div.p-1.mb-3.text-right.float-xs-right
+      = link_to new_service_status_check_path(service), class: "btn btn-outline-primary btn-sm ml-1", title: "Add a status check" do
+        i class="fa fa-plus" aria-hidden="true"
+      = link_to edit_service_path(service), class: "btn btn-outline-primary btn-sm ml-1", title: "Edit service" do
+        i class="fa fa-pencil" aria-hidden="true"
+      = link_to root_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger btn-sm ml-1", title: "Delete service" do
+        i class="fa fa-trash" aria-hidden="true"

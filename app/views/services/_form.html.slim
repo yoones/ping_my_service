@@ -1,0 +1,16 @@
+= form_for service do |f|
+  - if service.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(service.errors.count, "error")} prohibited this service from being saved:"
+      ul
+        - service.errors.full_messages.each do |message|
+          li = message
+
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :url
+    = f.text_field :url, class: "form-control"
+  .form-group
+    = f.submit "Add a new service", class: "btn btn-outline-primary btn-block"
