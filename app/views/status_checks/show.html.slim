@@ -1,18 +1,14 @@
-p#notice = notice
+.container
 
-p
-  strong Service:
-  = status_check.service_id
-p
-  strong Name:
-  = status_check.name
-p
-  strong Selector:
-  = status_check.selector
-p
-  strong Expected value:
-  = status_check.expected_value
-
-=> link_to 'Edit', edit_status_check_path(status_check)
-'|
-=< link_to 'Back', status_checks_path
+  p
+    strong Service:
+    = link_to status_check.service.name, status_check.service
+  p
+    strong Name:
+    = status_check.name
+  p
+    strong Selector:
+    code = status_check.selector
+  p
+    strong Expected value:
+    code = status_check.expected_value

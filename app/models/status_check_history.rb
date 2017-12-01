@@ -1,0 +1,2 @@
+class StatusCheckHistory < ApplicationRecord
+end

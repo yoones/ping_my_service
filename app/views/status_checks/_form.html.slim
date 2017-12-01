@@ -1,4 +1,5 @@
-= form_for status_check do |f|
+- options = status_check.persisted? ? {action: :update, method: :patch} : {action: :create, method: :post}
+= form_for status_check, url: {controller: :status_checks, action: options[:action], service_id: service.id}, method: options[:method] do |f|
   - if status_check.errors.any?
     #error_explanation
       h2 = "#{pluralize(status_check.errors.count, "error")} prohibited this status_check from being saved:"
@@ -6,16 +7,14 @@
         - status_check.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = f.label :service_id
-    = f.number_field :service_id
-  .field
+  = f.hidden_field :service_id, value: service.id
+  .form-group
     = f.label :name
-    = f.text_field :name
-  .field
+    = f.text_field :name, class: "form-control"
+  .form-group
     = f.label :selector
-    = f.text_field :selector
-  .field
+    = f.text_field :selector, class: "form-control"
+  .form-group
     = f.label :expected_value
-    = f.text_field :expected_value
-  .actions = f.submit
+    = f.text_field :expected_value, class: "form-control"
+  .actions = f.submit "Submit", class: "btn btn-outline-primary"

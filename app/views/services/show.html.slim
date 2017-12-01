@@ -1,12 +1,29 @@
-p#notice = notice
+.container.mt-3
+  h4
+    u Service
+  dl.row
+    dt.col-sm-3 Name
+    dd.col-sm-9 = service.name
+    dt.col-sm-3 URL
+    dd.col-sm-9 = link_to service.url, service.url, target: "blank"
 
-p
-  strong Name:
-  = service.name
-p
-  strong Url:
-  = service.url
+  table.table
+    thead
+      tr
+        th #
+        th Name
+        th Selector
+        th Expected value
+    tbody
+      - service.status_checks.each do |sc|
+        tr
+          td = sc.id
+          td = link_to sc.name, service_status_check_path(service_id: service, id: sc.id)
+          td
+            code = sc.selector.truncate(20)
+          td
+            code = sc.expected_value.truncate(20)
 
-=> link_to 'Edit', edit_service_path(service)
-'|
-=< link_to 'Back', services_path
+  h4.mt-4
+    u Add a new status check
+  == render partial: "status_checks/form"

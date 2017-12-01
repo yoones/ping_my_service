@@ -66,3 +66,7 @@ gem "dotenv-rails"
 gem 'draper', '>=3.0.1'
 gem 'decent_exposure', '~> 3.0.0'
 gem "font-awesome-sass"
+gem "whenever"
+gem "sidekiq"
+# gem "nokogiri" # Ne fait pas l'affaire (, je passe sur phantomjs
+gem "phantomjs"

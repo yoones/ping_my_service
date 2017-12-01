@@ -1,6 +1,7 @@
 class ServicesController < ApplicationController
   expose :services, ->{ Service.all }
   expose :service, decorate: ->(service){ ServiceDecorator.new(service) }
+  expose :status_check, -> { service.status_checks.new }
 
   def create
     if service.save

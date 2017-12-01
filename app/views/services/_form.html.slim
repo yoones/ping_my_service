@@ -13,4 +13,4 @@
     = f.label :url
     = f.text_field :url, class: "form-control"
   .form-group
-    = f.submit "Add a new service", class: "btn btn-outline-primary btn-block"
+    = f.submit (service.persisted? ? "Save modifications" : "Add a new service"), class: "btn btn-outline-primary btn-block"
