@@ -4,7 +4,12 @@
       div.d-flex.w-100.justify-content-between
         h5.mb-1 = service.name
         small.text-muted = "#{service.status_checks.count} status checks"
-      p.mb-1 todo: list currently failing status checks here
+      p.mb-1
+        - unless service.last_status_check
+          p Failing status checks:
+          ul
+            - service.status_checks.where(last_status_check: false).each do |sc|
+              li = sc.name
       small.text-muted.float-xs-left
         = "last checked #{time_ago_in_words(service.updated_at)} ago"
     div.p-1.mb-3.text-right.float-xs-right

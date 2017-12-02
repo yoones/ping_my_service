@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./_docker/app/Dockerfile
+    volumes:
+      - .:/app
+      - ~/docker-volumes/${APP_NAME:-skeletino}.${RAILS_ENV:-development}/app/log:/app/log
+      - ~/docker-volumes/${APP_NAME:-skeletino}.${RAILS_ENV:-development}/app/public/uploads:/app/public/uploads
+      - ~/docker-volumes/${APP_NAME:-skeletino}.${RAILS_ENV:-development}/app/public/assets:/app/public/assets
+    depends_on:
+      - database
+      - redis
+      - workers
+    environment:
+      - RAILS_ENV=${RAILS_ENV:-development}
+      - CONTAINER_JOB=rails
+
+  workers:
+    build:
+      context: .
+      dockerfile: ./_docker/app/Dockerfile
+    volumes:
+      - .:/app
+    depends_on:
+      - database
+      - redis
+    environment:
+      - RAILS_ENV=${RAILS_ENV:-development}
+      - CONTAINER_JOB=workers
+
+  database:
+    build:
+      context: .
+      dockerfile: ./_docker/database/Dockerfile
+    volumes:
+      - ~/docker-volumes/${APP_NAME:-skeletino}.${RAILS_ENV:-development}/database:/var/lib/mysql/
+    env_file:
+      - .env.${RAILS_ENV:-development}
+
+  web:
+    build:
+      context: .
+      dockerfile: ./_docker/web/Dockerfile
+    volumes:
+      - .:/app
+      - ~/docker-volumes/${APP_NAME:-skeletino}.${RAILS_ENV:-development}/web/log:/var/log/nginx
+      - ~/docker-volumes/${APP_NAME:-skeletino}.${RAILS_ENV:-development}/app/public/uploads:/app/public/uploads
+      - ~/docker-volumes/${APP_NAME:-skeletino}.${RAILS_ENV:-development}/app/public/assets:/app/public/assets
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    environment:
+      - RAILS_ENV=${RAILS_ENV:-development}
+
+  redis:
+    build:
+      context: .
+      dockerfile: ./_docker/redis/Dockerfile
+    volumes:
+      - ~/docker-volumes/${APP_NAME:-skeletino}.${RAILS_ENV:-development}/redis:/redis

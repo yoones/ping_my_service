@@ -14,6 +14,7 @@
         th Name
         th Selector
         th Expected value
+        th Last status check
     tbody
       - service.status_checks.each do |sc|
         tr
@@ -23,6 +24,8 @@
             code = sc.selector.truncate(20)
           td
             code = sc.expected_value.truncate(20)
+          td
+            span class="#{sc.last_status_check ? 'text-success' : 'text-danger'}" = sc.last_status_check
 
   h4.mt-4
     u Add a new status check

@@ -1,14 +1,13 @@
-.container
+.container.mt-3
 
-  p
-    strong Service:
-    = link_to status_check.service.name, status_check.service
-  p
-    strong Name:
-    = status_check.name
-  p
-    strong Selector:
-    code = status_check.selector
-  p
-    strong Expected value:
-    code = status_check.expected_value
+  dl.row
+    dt.col-sm-3 Service
+    dd.col-sm-9 = link_to status_check.service.name, status_check.service
+    dt.col-sm-3 Name
+    dd.col-sm-9 = status_check.name
+    dt.col-sm-3 Selector
+    dd.col-sm-9
+      code = status_check.selector
+    dt.col-sm-3 Expected value:
+    dd.col-sm-9
+      code = status_check.expected_value

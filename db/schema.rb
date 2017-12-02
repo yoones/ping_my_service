@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171201011313) do
+ActiveRecord::Schema.define(version: 20171201083112) do
 
   create_table "services", force: :cascade do |t|
     t.string "name"
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "last_status_check"
     t.index ["name"], name: "index_services_on_name", unique: true
   end
 
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(version: 20171201011313) do
     t.string "expected_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "last_status_check"
     t.index ["service_id"], name: "index_status_checks_on_service_id"
   end
 

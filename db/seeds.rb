@@ -1,6 +1,6 @@
 
 ## Lithium
-service = Service.create!(name: "Lithium", url: "http://status.lithium.com/")
+service = Service.create!(name: "Lithium", url: "http://status.lithium.com/", last_status_check: false)
 [
   {
     name: "Community / AMER Community Datacenter",
@@ -88,7 +88,7 @@ service = Service.create!(name: "Lithium", url: "http://status.lithium.com/")
     expected_value: "Operational"
   }
 ].each do |sc|
-  service.status_checks.create(sc)
+  service.status_checks.create(sc.merge({last_status_check: false}))
 end
 
 ## Facebook
@@ -100,5 +100,5 @@ service = Service.create!(name: "Facebook", url: "https://developers.facebook.co
     expected_value: "Facebook Platform is Healthy"
   }
 ].each do |sc|
-  service.status_checks.create(sc)
+  service.status_checks.create(sc.merge({last_status_check: false}))
 end
