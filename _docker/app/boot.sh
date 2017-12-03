@@ -16,8 +16,9 @@ function container_job_rails()
 
 function container_job_workers()
 {
+    env > /etc/environment
     bundle exec whenever --update-crontab
-    service cron restart
+    service cron start
     bundle exec sidekiq
 }
 
